@@ -17,5 +17,5 @@ INSERT INTO MOVIE (title, date, rank, revenue) VALUES ('Deep Water 1', '2012-03-
 INSERT INTO MOVIE (title, date, rank, revenue) VALUES ('Halo', '2010-08-23', 7.4, 15000000);
 INSERT INTO MOVIE (title, date, rank, revenue) VALUES ('Spider-Man: No Way Home', '2021-12-22', 8.1, 35000000);
 INSERT INTO MOVIE (title, date, rank, revenue) VALUES ('Game of Thrones', '2011-11-18', 9.2, 12500000);
-INSERT INTO MOVIE (title, date, rank, revenue) VALUES ('Almost Genius', '2015-02-30', 1.8, 80000);
+INSERT INTO MOVIE (title, date, rank, revenue) VALUES ('Almost Genius', '2015-02-28', 1.8, 80000);
 INSERT INTO MOVIE (title, date, rank, revenue) VALUES ('Deep Water 2', '2022-03-18', 4.4, 980000);
