@@ -1,20 +1,23 @@
 package com.xpand.challenge.service;
 
+import com.xpand.challenge.dto.MovieDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.List;
 
-import com.xpand.challenge.dto.IdentifiableMovieDTO;
-import com.xpand.challenge.dto.MovieDTO;
-
 public interface MovieService {
-    
-    IdentifiableMovieDTO createMovie(MovieDTO movieDTO);
 
-    IdentifiableMovieDTO getMovie(Long id);
+    MovieDTO getMovieById(Long id);
 
-    List<IdentifiableMovieDTO> getMovies();
+    @Transactional(readOnly = true)
+    Page<MovieDTO> getMovies(PageRequest pageRequest);
 
-    List<IdentifiableMovieDTO> getMoviesByDate(LocalDate date);
+    List<MovieDTO> getMoviesByDate(LocalDate date);
+
+    MovieDTO createMovie(MovieDTO movieDTO);
 
     void updateMovie(Long id, MovieDTO movieDTO);
 
