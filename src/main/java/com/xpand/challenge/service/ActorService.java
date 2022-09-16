@@ -11,7 +11,7 @@ public interface ActorService {
 
     ActorDTO getActorById(Long id);
 
-    List<ActorProjection> getActorByIdMovie(Long id);
+    List<ActorProjection> getActorByIdActor(Long id);
 
     List<ActorDTO> getActors();
 

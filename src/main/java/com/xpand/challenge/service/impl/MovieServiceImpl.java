@@ -26,6 +26,7 @@ public class MovieServiceImpl implements MovieService {
         this.movieValidator = movieValidator;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public MovieDTO getMovieById(Long id) {
         return movieRepository.findById(id).map(MovieDTO::convert).orElseThrow();
@@ -39,12 +40,14 @@ public class MovieServiceImpl implements MovieService {
         return page.map(MovieDTO::convert);
     }
 
+    @Transactional(readOnly = true)
     public List<MovieDTO> getMoviesByDate(LocalDate date) {
         return movieRepository.findMoviesByDate(date).stream()
                 .map(MovieDTO::convert)
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public MovieDTO createMovie(MovieDTO movieDTO) {
         movieValidator.validate(movieDTO);
@@ -53,6 +56,7 @@ public class MovieServiceImpl implements MovieService {
         return MovieDTO.convert(movieRepository.save(movie));
     }
 
+    @Transactional
     @Override
     public void updateMovie(Long id, MovieDTO movieDTO) {
         movieRepository.findById(id).orElseThrow();
@@ -63,6 +67,7 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.save(movie);
     }
 
+    @Transactional
     @Override
     public void deleteMovie(Long id) {
         var movie = movieRepository.findById(id).orElseThrow();

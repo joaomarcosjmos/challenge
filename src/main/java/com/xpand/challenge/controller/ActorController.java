@@ -32,7 +32,7 @@ public class ActorController {
 
     @GetMapping("/movie/{id}")
     public ResponseEntity<List<ActorProjection>> getActorByIdMovie(@PathVariable Long id) {
-        return ResponseEntity.ok().body(actorService.getActorByIdMovie(id));
+        return ResponseEntity.ok().body(actorService.getActorByIdActor(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
