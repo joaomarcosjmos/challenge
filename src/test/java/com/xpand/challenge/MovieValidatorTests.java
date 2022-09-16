@@ -1,17 +1,15 @@
 package com.xpand.challenge;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import com.xpand.challenge.dto.MovieDTO;
+import com.xpand.challenge.validator.Validator;
+import com.xpand.challenge.validator.impl.MovieValidator;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.xpand.challenge.dto.MovieDTO;
-import com.xpand.challenge.validator.Validator;
-import com.xpand.challenge.validator.impl.MovieValidator;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieValidatorTests {
 
@@ -26,7 +24,7 @@ public class MovieValidatorTests {
     void doTestValidMovie() {
         MovieDTO dto = new MovieDTO();
         dto.setTitle("title");
-        dto.setRank(15f);
+        dto.setRank(10f);
         dto.setDate(LocalDate.now());
         assertDoesNotThrow(() -> validator.validate(dto));
         dto.setRevenue(new BigDecimal(100000));
@@ -64,6 +62,6 @@ public class MovieValidatorTests {
         dto.setRank(5f);
         dto.setDate(LocalDate.now());
         dto.setRevenue(new BigDecimal(-1));
-        assertThrowsExactly(IllegalArgumentException.class, () -> validator.validate(dto));
+        assertThrows(IllegalArgumentException.class, () -> validator.validate(dto));
     }
 }
