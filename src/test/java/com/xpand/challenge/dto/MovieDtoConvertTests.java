@@ -14,7 +14,7 @@ public class MovieDtoConvertTests {
 
 
     @Test
-    void doTestfromMovieDTO() {
+    void doTestFromMovieDTO() {
         var dto = new MovieDTO();
         dto.setTitle("title");
         dto.setRank(5f);
@@ -29,7 +29,7 @@ public class MovieDtoConvertTests {
     }
 
     @Test
-    void doTesttoMovieDTO() {
+    void doTestToMovieDTO() {
         var movie = new Movie();
         movie.setId(1l);
         movie.setTitle("title");

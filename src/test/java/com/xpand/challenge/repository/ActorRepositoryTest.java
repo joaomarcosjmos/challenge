@@ -21,20 +21,20 @@ class ActorRepositoryTest {
 
     @Test
     void findById_ReturnActor_WhenSuccessful() {
-        var actorSaved = createMovie();
+        var actorSaved = createActor();
 
         var id = actorSaved.getId();
 
-        var movie = this.repository.findById(id).get();
+        var actor = this.repository.findById(id).get();
 
-        Assertions.assertThat(movie).isNotNull();
+        Assertions.assertThat(actor).isNotNull();
 
         Assertions.assertThat(actorSaved.getName()).isEqualTo(actorSaved.getName());
     }
 
     @Test
     void save_PersistActor_WhenSuccessful() {
-        var actorSaved = createMovie();
+        var actorSaved = createActor();
 
         Assertions.assertThat(actorSaved).isNotNull();
 
@@ -45,22 +45,22 @@ class ActorRepositoryTest {
 
     @Test
     void save_UpdateActor_WhenSuccessful() {
-        var actorSaved = createMovie();
+        var actorSaved = createActor();
 
         actorSaved.setName("New Title");
 
-        var movieUpdate = repository.save(actorSaved);
+        var actorUpdate = repository.save(actorSaved);
 
-        Assertions.assertThat(movieUpdate).isNotNull();
+        Assertions.assertThat(actorUpdate).isNotNull();
 
-        Assertions.assertThat(movieUpdate.getId()).isNotNull();
+        Assertions.assertThat(actorUpdate.getId()).isNotNull();
 
-        Assertions.assertThat(movieUpdate.getName()).isEqualTo(actorSaved.getName());
+        Assertions.assertThat(actorUpdate.getName()).isEqualTo(actorSaved.getName());
     }
 
     @Test
-    void delete_RemoveMovie_WhenSuccessful() {
-        var actorSaved = createMovie();
+    void delete_RemoveActor_WhenSuccessful() {
+        var actorSaved = createActor();
 
         this.repository.delete(actorSaved);
 
@@ -70,7 +70,7 @@ class ActorRepositoryTest {
 
     }
 
-    private Actor createMovie() {
+    private Actor createActor() {
         var dto = new ActorDTO();
         dto.setName("Old Title");
         var actorSaved = repository.save(Actor.convert(dto));

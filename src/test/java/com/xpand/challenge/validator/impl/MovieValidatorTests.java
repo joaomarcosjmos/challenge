@@ -2,7 +2,6 @@ package com.xpand.challenge.validator.impl;
 
 import com.xpand.challenge.dto.MovieDTO;
 import com.xpand.challenge.validator.Validator;
-import com.xpand.challenge.validator.impl.MovieValidator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

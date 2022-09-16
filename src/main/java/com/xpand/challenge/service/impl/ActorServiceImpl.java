@@ -24,27 +24,32 @@ public class ActorServiceImpl implements ActorService {
         this.movieRepository = movieRepository;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ActorDTO getActorById(Long id) {
         return actorRepository.findById(id).map(ActorDTO::convert).orElseThrow();
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public List<ActorProjection> getActorByIdMovie(Long id) {
-        return actorRepository.getActorByIdMovie(id);
+    public List<ActorProjection> getActorByIdActor(Long id) {
+        return actorRepository.getActorByIdActor(id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ActorDTO> getActors() {
         return actorRepository.findAll().stream().map(ActorDTO::convert).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public ActorDTO createActor(ActorDTO actorDTO) {
-        var movie = Actor.convert(actorDTO);
-        return ActorDTO.convert(actorRepository.save(movie));
+        var actor = Actor.convert(actorDTO);
+        return ActorDTO.convert(actorRepository.save(actor));
     }
 
+    @Transactional
     @Override
     public void updateActor(Long id, ActorDTO actorDTO) {
         actorRepository.findById(id).orElseThrow();

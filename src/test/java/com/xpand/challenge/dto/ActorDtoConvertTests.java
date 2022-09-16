@@ -17,7 +17,7 @@ public class ActorDtoConvertTests {
     }
 
     @Test
-    void doTesttoActorDTO() {
+    void doTestToActorDTO() {
         var actor = new Actor();
         actor.setId(1l);
         actor.setName("Jack Nicholson");

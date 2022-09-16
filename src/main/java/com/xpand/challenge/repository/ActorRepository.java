@@ -15,5 +15,5 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
             "FROM actor a " +
             "JOIN movie_actor ma ON a.id = ma.actor_id " +
             "JOIN movie m ON m.id = ma.movie_id AND m.id = :id", nativeQuery = true)
-    List<ActorProjection> getActorByIdMovie(Long id);
+    List<ActorProjection> getActorByIdActor(Long id);
 }
