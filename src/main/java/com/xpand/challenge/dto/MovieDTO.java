@@ -1,11 +1,13 @@
 package com.xpand.challenge.dto;
 
 import com.xpand.challenge.model.Movie;
+import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -16,9 +18,10 @@ public class MovieDTO {
     private LocalDate date;
     private Float rank;
     private BigDecimal revenue;
-    private List<ActorDTO> actors = new ArrayList<>();
+    private List<ActorDTO> actors;
 
     public MovieDTO() {
+        actors = new ArrayList<>();
     }
 
     public Long getId() {
@@ -67,6 +70,26 @@ public class MovieDTO {
 
     public void setActors(List<ActorDTO> actors) {
         this.actors = actors;
+    }
+
+    public boolean hasRankValid() {
+        return Objects.nonNull(rank) && (rank >= 0d && rank <= 10d);
+    }
+
+    public boolean hasTitleValid() {
+        return !ObjectUtils.isEmpty(title) && !ObjectUtils.isEmpty(title.trim());
+    }
+
+    public boolean hasDateValid() {
+        return Objects.nonNull(date);
+    }
+
+    public boolean hasRevenue() {
+        return Objects.nonNull(revenue);
+    }
+
+    public boolean hasRevenueValid() {
+        return hasRevenue() && (revenue.compareTo(BigDecimal.ZERO) > 0);
     }
 
     public static MovieDTO convert(Movie movie) {
