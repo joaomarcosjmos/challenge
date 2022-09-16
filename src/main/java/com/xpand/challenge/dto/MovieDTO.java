@@ -1,15 +1,34 @@
 package com.xpand.challenge.dto;
 
+import com.xpand.challenge.model.Movie;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MovieDTO {
 
+    private Long id;
     private String title;
     private LocalDate date;
     private Float rank;
     private BigDecimal revenue;
-    
+    private List<ActorDTO> actors = new ArrayList<>();
+
+    public MovieDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -42,4 +61,24 @@ public class MovieDTO {
         this.revenue = revenue;
     }
 
+    public List<ActorDTO> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<ActorDTO> actors) {
+        this.actors = actors;
+    }
+
+    public static MovieDTO convert(Movie movie) {
+        return Optional.ofNullable(movie).map(m -> {
+            MovieDTO dto = new MovieDTO();
+            dto.setId(movie.getId());
+            dto.setDate(movie.getDate());
+            dto.setTitle(movie.getTitle());
+            dto.setRank(movie.getRank());
+            dto.setRevenue(movie.getRevenue());
+            dto.setActors(movie.getActors().stream().map(x -> new ActorDTO(x)).collect(Collectors.toList()));
+            return dto;
+        }).orElse(null);
+    }
 }

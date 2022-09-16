@@ -1,30 +1,26 @@
-package com.xpand.challenge;
+package com.xpand.challenge.dto;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import com.xpand.challenge.model.Actor;
+import com.xpand.challenge.model.Movie;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
 
-import com.xpand.challenge.dto.IdentifiableMovieDTO;
-import com.xpand.challenge.dto.MovieDTO;
-import com.xpand.challenge.dto.MovieDTOMapper;
-import com.xpand.challenge.model.Movie;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
-
-public class MovieMapperTests {
+public class MovieDtoConvertTests {
 
 
     @Test
     void doTestfromMovieDTO() {
-        MovieDTO dto = new MovieDTO();
+        var dto = new MovieDTO();
         dto.setTitle("title");
         dto.setRank(5f);
         dto.setDate(LocalDate.now());
         dto.setRevenue(new BigDecimal(100000));
-        Movie movie = MovieDTOMapper.fromMovieDTO(dto);
+        Movie movie = Movie.convert(dto);
         assertNotNull(movie);
         assertEquals(dto.getTitle(), movie.getTitle());
         assertEquals(dto.getRank(), movie.getRank());
@@ -34,25 +30,27 @@ public class MovieMapperTests {
 
     @Test
     void doTesttoMovieDTO() {
-        Movie movie = new Movie();
+        var movie = new Movie();
         movie.setId(1l);
         movie.setTitle("title");
         movie.setRank(5f);
         movie.setDate(LocalDate.now());
         movie.setRevenue(new BigDecimal(100000));
-        IdentifiableMovieDTO dto = MovieDTOMapper.toMovieDTO(movie);
+        movie.setActors(Arrays.asList(new Actor(1L, "Jack Nicholson")));
+        var dto = MovieDTO.convert(movie);
         assertNotNull(dto);
         assertEquals(movie.getId(), dto.getId());
         assertEquals(movie.getTitle(), dto.getTitle());
         assertEquals(movie.getRank(), dto.getRank());
         assertEquals(movie.getDate(), dto.getDate());
         assertEquals(movie.getRevenue(), dto.getRevenue());
+        assertNotEquals(movie.getActors(), dto.getActors());
     }
 
     @Test
     void doTestNull() {
-        assertNull(MovieDTOMapper.fromMovieDTO(null));
-        assertNull(MovieDTOMapper.toMovieDTO(null));
+        assertNull(Movie.convert(null));
+        assertNull(MovieDTO.convert(null));
     }
 
 }
