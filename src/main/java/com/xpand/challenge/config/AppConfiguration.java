@@ -9,10 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfiguration {
-    
     @Bean
     Validator<MovieDTO> movieValidator() {
         return new MovieValidator();
     }
-
 }
