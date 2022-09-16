@@ -26,7 +26,7 @@ public class ActorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getActorById(@PathVariable Long id) {
+    public ResponseEntity<ActorDTO> getActorById(@PathVariable Long id) {
         return ResponseEntity.ok().body(actorService.getActorById(id));
     }
 

@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,6 +35,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public final ResponseEntity<?> handleException(DataIntegrityViolationException e) {
+        logger.error(e.getMessage(), e);
+        return ResponseEntity.badRequest().body(new RestExceptionResponse(e.getMessage()));
+    }
+
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public final ResponseEntity<?> handleException(EmptyResultDataAccessException e) {
         logger.error(e.getMessage(), e);
         return ResponseEntity.badRequest().body(new RestExceptionResponse(e.getMessage()));
     }

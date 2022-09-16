@@ -16,7 +16,6 @@ public class Actor {
     private Long id;
     @Column(name = "name")
     private String name;
-
     @ManyToMany(mappedBy = "actors")
     private List<Movie> movies = new ArrayList<>();
 

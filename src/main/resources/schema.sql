@@ -1,32 +1,32 @@
-create table actor (
-       id bigint not null auto_increment,
-       name varchar(255),
-       primary key (id)
-) engine=InnoDB;
+CREATE TABLE actor (
+       id IDENTITY not null,
+       name VARCHAR(255),
+       PRIMARY KEY (id)
+);
 
-create table movie (
-       id bigint not null auto_increment,
-       date date not null,
-       rank float not null,
+CREATE TABLE movie (
+       id IDENTITY not null,
+       date DATE not null,
+       rank FLOAT not null,
        revenue decimal(19,2),
        title varchar(255) not null,
-       primary key (id)
-) engine=InnoDB;
+       PRIMARY KEY (id)
+);
 
-create table movie_actor (
-       movie_id bigint not null,
-       actor_id bigint not null
-) engine=InnoDB;
+CREATE TABLE movie_actor (
+       movie_id BIGINT not null,
+       actor_id BIGINT not null
+);
 
-alter table movie_actor
-    add constraint FK69qnqd5hnjn2aykvxcj72r9i5
-        foreign key (actor_id)
-            references actor (id);
+ALTER TABLE movie_actor
+    ADD constraint FK69qnqd5hnjn2aykvxcj72r9i5
+        FOREIGN KEY (actor_id)
+            REFERENCES actor (id);
 
-alter table movie_actor
-    add constraint FKhedvt8u16luotgyoel4fqy7t1
-        foreign key (movie_id)
-            references movie (id);
+ALTER TABLE movie_actor
+    ADD constraint FKhedvt8u16luotgyoel4fqy7t1
+        FOREIGN KEY (movie_id)
+            REFERENCES movie (id);
 
 
 INSERT INTO movie (title, date, rank, revenue) VALUES ('Back to the Future', '1985-07-03', 8.5, 2000000);

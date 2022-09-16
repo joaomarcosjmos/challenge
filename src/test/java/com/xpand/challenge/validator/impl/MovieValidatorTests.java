@@ -1,4 +1,4 @@
-package com.xpand.challenge;
+package com.xpand.challenge.validator.impl;
 
 import com.xpand.challenge.dto.MovieDTO;
 import com.xpand.challenge.validator.Validator;

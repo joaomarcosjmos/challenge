@@ -1,4 +1,4 @@
-package com.xpand.challenge;
+package com.xpand.challenge.integration;
 
 import com.xpand.challenge.dto.MovieDTO;
 import com.xpand.challenge.model.Actor;
@@ -67,7 +67,7 @@ class ChallengeApplicationTests {
 
 	@Test
 	void doTestGetMovieByDate() {
-		ResponseEntity<List<MovieDTO>> response = restTemplate.exchange("http://localhost:"+port+"/movies/?date=2019-09-03", HttpMethod.GET, null,
+		ResponseEntity<List<MovieDTO>> response = restTemplate.exchange("http://localhost:"+port+"/movies/date?date=2019-09-03", HttpMethod.GET, null,
 				new ParameterizedTypeReference<>() {});
 		assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
 		assertTrue(response.getBody().size() > 0);
@@ -75,7 +75,7 @@ class ChallengeApplicationTests {
 
 	@Test
 	void doTestGetMovieByDateEmpty() {
-		ResponseEntity<List<MovieDTO>> response = restTemplate.exchange("http://localhost:"+port+"/movies/?date=2025-09-03", HttpMethod.GET, null,
+		ResponseEntity<List<MovieDTO>> response = restTemplate.exchange("http://localhost:"+port+"/movies/date?date=2025-09-03", HttpMethod.GET, null,
 			new ParameterizedTypeReference<>() {});
 		assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
 		assertTrue(response.getBody().size() == 0);
