@@ -1,22 +1,18 @@
 package com.xpand.challenge.controller;
 
-import java.time.LocalDate;
-
 import com.xpand.challenge.dto.MovieDTO;
+import com.xpand.challenge.model.Movie;
 import com.xpand.challenge.service.MovieService;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/movies", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,34 +25,37 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getMovies() {
-        return ResponseEntity.ok().body(movieService.getMovies());
+    public ResponseEntity<Page<MovieDTO>> getMovies(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "10") Integer size
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return ResponseEntity.ok().body(movieService.getMovies(pageRequest));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getMovie(@PathVariable Long id) {
-        return ResponseEntity.ok().body(movieService.getMovie(id));
+    public ResponseEntity<?> getMovieById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(movieService.getMovieById(id));
     }
 
-    @GetMapping
-    public ResponseEntity<?> getMoviesByDate(@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    @GetMapping("/date")
+    public ResponseEntity<List<MovieDTO>> getMoviesByDate(@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok().body(movieService.getMoviesByDate(date));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createMovie(@RequestBody MovieDTO movieDTO) {
-        movieService.createMovie(movieDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MovieDTO> createMovie(@RequestBody MovieDTO movieDTO) {
+        return new ResponseEntity<>(movieService.createMovie(movieDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateMovie(@PathVariable Long id, @RequestBody MovieDTO movieDTO) {
+    public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody MovieDTO movieDTO) {
         movieService.updateMovie(id, movieDTO);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
+    public ResponseEntity<Movie> deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
         return ResponseEntity.noContent().build();
     }
